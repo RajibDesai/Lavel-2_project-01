@@ -1,5 +1,6 @@
 {
-  "compilerOptions": { // TypeScript কম্পাইলার অপশন
+  "compilerOptions": {
+    // TypeScript কম্পাইলার অপশন
     "module": "NodeNext", // Node.js-এর জন্য ES মডিউল এবং CommonJS মডিউল সমর্থন করে
     "moduleResolution": "nodenext", // Node.js মডিউল রেজলুশন কৌশল অনুসরণ করে
     "target": "ESNext", // JavaScript-এর সর্বশেষ সংস্করণে কম্পাইল করে
@@ -11,8 +12,8 @@
     "resolveJsonModule": true, // JSON ফাইল ইমপোর্ট করার ক্ষমতা প্রদান করে
     "allowSyntheticDefaultImports": true, // ডিফল্ট ইমপোর্ট করার অনুমতি দেয় (ডিফল্ট এক্সপোর্ট না থাকলেও)
     "forceConsistentCasingInFileNames": true, // ফাইল নামের কেসিং (বড়/ছোট অক্ষর) সঙ্গতিপূর্ণ রাখে
-    "typeRoots": [ "./node_modules/@types" ] // টাইপ ডিক্লারেশন ফাইলগুলোর পাথ নির্ধারণ করে
+    "typeRoots": ["./node_modules/@types"] // টাইপ ডিক্লারেশন ফাইলগুলোর পাথ নির্ধারণ করে
   },
-  "include": [ "src/**/*.ts" ], // ইনক্লুড করার জন্য TypeScript ফাইলের পাথ নির্ধারণ করে
-  "exclude": [ "node_modules" ] // এক্সক্লুড করার জন্য ডিরেক্টরি নির্ধারণ করে
+  "include": ["src/**/*.ts"], // ইনক্লুড করার জন্য TypeScript ফাইলের পাথ নির্ধারণ করে
+  "exclude": ["node_modules"] // এক্সক্লুড করার জন্য ডিরেক্টরি নির্ধারণ করে
 }
