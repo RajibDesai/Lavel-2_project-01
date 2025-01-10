@@ -30,7 +30,7 @@ export default [
       'prefer-const': 'error', // যদি সম্ভব হয়, const ব্যবহার করুন
       'no-empty-function': 'warn', // খালি ফাংশন থাকলে সতর্ক করবে
       'no-unused-expressions': 'error',
-      'no-undef': 'error',
+      'no-undef': 'error',np
     },
   },
   // Prettier এর রুলস কনফ্লিক্ট সরাতে আলাদা ফাইল সেটআপ
