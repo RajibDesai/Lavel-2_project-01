@@ -21,23 +21,23 @@ export default [
       prettier: prettierPlugin, // Prettier প্লাগইন
     },
     rules: {
-      'prettier/prettier': 'error', // Prettier এর ত্রুটি চেক
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
       'no-console': 'warn',
       'no-alert': 'warn', // alert, confirm, এবং prompt ব্যবহার করলে সতর্ক করবে
       'default-case': 'error', // switch স্টেটমেন্টে default case থাকা বাধ্যতামূলক
       'dot-notation': 'error', // অব্যবহৃত স্ট্রিং সাবস্ক্রিপশন এড়িয়ে চলুন
       'no-var': 'error', // var ব্যবহার নিষিদ্ধ, const/let ব্যবহার করতে হবে
       'prefer-const': 'error', // যদি সম্ভব হয়, const ব্যবহার করুন
-      'no-empty-function': 'warn', // খালি ফাংশন থাকলে সতর্ক করবে
+      'no-empty-function': 'off', // খালি ফাংশনের জন্য ESLint ত্রুটি সরানো
       'no-unused-expressions': 'error',
       'no-undef': 'error',
     },
   },
   // Prettier এর রুলস কনফ্লিক্ট সরাতে আলাদা ফাইল সেটআপ
   {
-    files: ['**/*.js', '**/*.ts', '**/*.tsx'],
+    files: ['**/*.ts', '**/*.tsx'],
     rules: {
-      ...prettierConfig.rules, // Prettier এর রুলস ইমপোর্ট করে কনফ্লিক্ট রোধ
+      ...prettierConfig.rules, // Prettier কনফিগার করা
     },
   },
 ];

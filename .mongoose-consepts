@@ -1,0 +1,231 @@
+import { Schema, model, connect } from 'mongoose'; 
+// Mongoose থেকে Schema, model এবং connect ফাংশন ইমপোর্ট করা হচ্ছে।
+
+import {
+  Gurdian,
+  LocalGurdian,
+  Student,
+  UserName,
+} from './student/student.interface.js'; 
+// টাইপ ডেফিনিশনের জন্য Custom Interface ইমপোর্ট করা হচ্ছে।
+
+const userNameSchema = new Schema<UserName>({
+  firstName: {
+    type: String,
+    require: true,
+  },
+  middleName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+    require: true,
+  },
+}); 
+// UserName স্কিমা তৈরি করা হচ্ছে যেখানে firstName, middleName এবং lastName উল্লেখ করা হয়েছে।
+
+const gardianSchema = new Schema<Gurdian>({
+  father: {
+    type: String,
+    require: true,
+  },
+  fatherOccupation: {
+    type: String,
+    require: true,
+  },
+  fatherContactNo: {
+    type: String,
+    require: true,
+  },
+  mothar: {
+    type: String,
+    require: true,
+  },
+  motherOccupation: {
+    type: String,
+    require: true,
+  },
+  motherContactName: {
+    type: String,
+    require: true,
+  },
+}); 
+// Gurdian স্কিমা তৈরি করা হচ্ছে যেখানে বাবা ও মায়ের নাম, পেশা এবং যোগাযোগের নম্বর উল্লেখ করা হয়েছে।
+
+const localGardianSchema = new Schema<LocalGurdian>({
+  name: {
+    type: String,
+    require: true,
+  },
+  occupation: {
+    type: String,
+    require: true,
+  },
+  contractName: {
+    type: String,
+    require: true,
+  },
+  address: {
+    type: String,
+    require: true,
+  },
+}); 
+// LocalGurdian স্কিমা তৈরি করা হচ্ছে যেখানে লোকাল গার্ডিয়ানের নাম, পেশা, যোগাযোগ এবং ঠিকানা উল্লেখ করা হয়েছে।
+
+const studentSchema = new Schema<Student>({
+  id: { type: String }, // স্টুডেন্ট আইডি সংরক্ষণের জন্য।
+  name: userNameSchema, // UserName স্কিমাকে রেফারেন্স করা হয়েছে।
+  gender: ['male', 'female'], // লিঙ্গ সংরক্ষণ করা হচ্ছে।
+  dateOfBirth: { type: String }, // জন্মতারিখ সংরক্ষণের জন্য।
+  email: { String, required: true }, // ইমেইল সংরক্ষণের জন্য।
+  contactNo: { String }, // যোগাযোগ নম্বর সংরক্ষণ করা হচ্ছে।
+  emergencyContactNo: { type: String }, // জরুরি যোগাযোগ নম্বর সংরক্ষণের জন্য।
+  bloodGroup: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], 
+  // রক্তের গ্রুপ সংরক্ষণের জন্য।
+  presentAddress: { type: String, required: true }, // বর্তমান ঠিকানা সংরক্ষণের জন্য।
+  permanentAddress: { type: String, required: true }, // স্থায়ী ঠিকানা সংরক্ষণের জন্য।
+  gurdian: gardianSchema, // গার্ডিয়ান স্কিমাকে রেফারেন্স করা হয়েছে।
+  localGardian: localGardianSchema, // লোকাল গার্ডিয়ান স্কিমাকে রেফারেন্স করা হয়েছে।
+  profileImg: { String }, // প্রোফাইল ছবির জন্য।
+  isActive: ['active', 'blocked'], // অ্যাকাউন্টের অবস্থা সংরক্ষণের জন্য।
+});
+
+// Student স্কিমা তৈরি করা হয়েছে, যেখানে বিভিন্ন ফিল্ড উল্লেখ করা হয়েছে।
+
+export const StudentModel = model<Student>('Student', studentSchema); 
+// Student স্কিমা থেকে StudentModel তৈরি করা হয়েছে, যা ডাটাবেসে Student কালেকশনের সাথে সংযুক্ত থাকবে।
+
+const studentSchema = new Schema<Student>({}) ফাংশনটিকে "কন্সট্রাক্টর ফাংশন" (Constructor Function) বলা হয়।
+
+ব্যাখ্যা:
+new Schema<Student>: এটি একটি কন্সট্রাক্টর ফাংশন যা mongoose.Schema এর একটি নতুন ইনস্ট্যান্স তৈরি করে। এই ইনস্ট্যান্সটি ডাটাবেসের একটি ডকুমেন্টের কাঠামো (structure) সংজ্ঞায়িত করতে ব্যবহৃত হয়।
+
+কাজ:
+এটি আপনার ডাটাবেসের ডকুমেন্টের জন্য একটি নির্দিষ্ট কাঠামো (schema) সংজ্ঞায়িত করে, যেখানে প্রতিটি ফিল্ডের ধরন (type), ভ্যালিডেশন (validation), এবং অন্যান্য বৈশিষ্ট্য নির্ধারণ করা হয়।
+
+উপাদান:
+
+Student: এটি টাইপস্ক্রিপ্ট ইন্টারফেস বা টাইপ যা স্কিমার টাইপিংয়ের জন্য ব্যবহৃত হয়।
+{}: এখানে আপনার স্কিমার কাঠামো (fields এবং তাদের বৈশিষ্ট্য) সংজ্ঞায়িত করা হয়।
+উদাহরণ:
+এই কন্সট্রাক্টর ফাংশন studentSchema তৈরি করে, যা পরে model ফাংশনের মাধ্যমে একটি মডেল হিসেবে ডাটাবেসে ব্যবহৃত হয়।
+
+const studentSchema = new Schema<Student>({
+  id: { type: String },  // Field Definition: "id" নামে একটি ফিল্ড তৈরি করা হয়েছে, যার টাইপ String।
+  name: userNameSchema,  // Field Definition: "name" ফিল্ডে অন্য একটি স্কিমা রেফার করা হয়েছে।
+  gender: ['male', 'female'],  // Field Definition: "gender" ফিল্ডে কেবল 'male' বা 'female' অনুমোদিত।
+  dateOfBirth: { type: String }, // Field Definition: "dateOfBirth" ফিল্ড, টাইপ String।
+});
+
+এই লাইনটি কী করে এবং এটি কী নামে পরিচিত?
+typescript
+Copy code
+export const StudentModel = model<Student>('Student', studentSchema);
+এই লাইনটিকে বলা হয় Model Definition (মডেল ডেফিনিশন)।
+বর্ণনা:
+model<Student>() ফাংশনটি:
+
+এটি Mongoose এর একটি ফাংশন।
+এটি একটি Model তৈরি করে, যা MongoDB ডাটাবেসের কালেকশন এর সাথে সংযুক্ত হয়।
+মডেলটি স্কিমা (studentSchema) এর ভিত্তিতে ডেটা তৈরি, পড়া, আপডেট, এবং ডিলিট (CRUD) অপারেশন করতে সক্ষম হয়।
+এখানে <Student> টাইপটি TypeScript এর জন্য ব্যবহৃত হয়েছে, যা ডেটার টাইপিং নিশ্চিত করে।
+'Student':
+
+এটি MongoDB তে যে কালেকশন তৈরি হবে তার নাম নির্দেশ করে।
+MongoDB এর নিয়ম অনুযায়ী, এটি স্বয়ংক্রিয়ভাবে pluralized (বহুবচন) হয়ে যাবে। অর্থাৎ, Student নামের মডেল MongoDB তে students নামের কালেকশন তৈরি করবে।
+studentSchema:
+
+এটি Schema Definition যা ডেটার স্ট্রাকচার নির্ধারণ করে। এই স্কিমা অনুসারেই ডেটা ভ্যালিড করা হবে।
+export const StudentModel:
+
+StudentModel হলো মডেলের রেফারেন্স, যেটি অ্যাপ্লিকেশনের অন্যান্য স্থানে ব্যবহার করা যাবে।
+এটি export করার ফলে, যেকোনো ফাইল থেকে এটি import করে ব্যবহার করা সম্ভব।
+উদাহরণ:
+ডেটা তৈরি করার জন্য:
+
+typescript
+Copy code
+const newStudent = new StudentModel({
+  id: '12345',
+  name: {
+    firstName: 'John',
+    lastName: 'Doe',
+  },
+  gender: 'male',
+  dateOfBirth: '2000-01-01',
+  // অন্যান্য ফিল্ড...
+});
+
+await newStudent.save(); // ডেটাবেসে সেভ করা হবে।
+ডেটা খুঁজে বের করার জন্য:
+
+typescript
+Copy code
+const students = await StudentModel.find({ gender: 'male' });
+console.log(students); // সকল male শিক্ষার্থীর তথ্য দেখাবে।
+সংক্ষেপে:
+model<Student>() ফাংশন ব্যবহার করে একটি মডেল তৈরি করা হয়।
+এটি MongoDB কালেকশন এর সাথে কাজ করার জন্য একটি ইন্টারফেস বা মাধ্যম।
+এই লাইনটি Model Definition বা Mongoose Model Creation নামে পরিচিত।
+
+import { Schema, model, connect } from 'mongoose'; 
+// Mongoose থেকে Schema, model এবং connect ফাংশন ইমপোর্ট করা হয়েছে।
+// Schema: ডেটার কাঠামো তৈরি করতে ব্যবহৃত হয়।
+// model: Schema-র উপর ভিত্তি করে মডেল তৈরি করে।
+// connect: ডাটাবেজের সাথে সংযোগ স্থাপন করতে ব্যবহৃত হয়।
+
+// --------------------- Types Definition ---------------------
+
+export type UserName = {
+  firstName: string; // ব্যবহারকারীর প্রথম নাম।
+  middleName: string; // ব্যবহারকারীর মধ্যের নাম।
+  lastName: string; // ব্যবহারকারীর শেষ নাম।
+};
+// UserName: ব্যবহারকারীর নামের জন্য টাইপ সংজ্ঞা।
+
+export type Gurdian = {
+  father: string; // পিতার নাম।
+  fatherOccupation: string; // পিতার পেশা।
+  fatherContactNo: string; // পিতার যোগাযোগ নম্বর।
+  mothar: string; // মাতার নাম।
+  motherOccupation: string; // মাতার পেশা।
+  motherContactName: string; // মাতার যোগাযোগের নাম।
+};
+// Gurdian: অভিভাবকের তথ্যের জন্য টাইপ সংজ্ঞা।
+
+export type LocalGurdian = {
+  name: string; // স্থানীয় অভিভাবকের নাম।
+  occupation: string; // স্থানীয় অভিভাবকের পেশা।
+  contractName: string; // স্থানীয় অভিভাবকের যোগাযোগ নাম্বার।
+  address: string; // স্থানীয় অভিভাবকের ঠিকানা।
+};
+// LocalGurdian: স্থানীয় অভিভাবকের তথ্যের জন্য টাইপ সংজ্ঞা।
+
+export type Student = {
+  id: string; // শিক্ষার্থীর আইডি।
+  name: UserName; // শিক্ষার্থীর নামের তথ্য।
+  gender: 'male' | 'female'; // শিক্ষার্থীর লিঙ্গ (পুরুষ/মহিলা)।
+  dateOfBirth?: string; // শিক্ষার্থীর জন্মতারিখ (ঐচ্ছিক)।
+  email: string; // শিক্ষার্থীর ইমেইল।
+  contactNo: string; // শিক্ষার্থীর যোগাযোগ নম্বর।
+  emergencyContactNo: string; // জরুরি যোগাযোগ নম্বর।
+  bloodGroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'; 
+  // শিক্ষার্থীর রক্তের গ্রুপ।
+  presentAddress: string; // শিক্ষার্থীর বর্তমান ঠিকানা।
+  permanentAddress: string; // শিক্ষার্থীর স্থায়ী ঠিকানা।
+  gurdian: Gurdian; // শিক্ষার্থীর অভিভাবকের তথ্য।
+  localGardian: LocalGurdian; // শিক্ষার্থীর স্থানীয় অভিভাবকের তথ্য।
+  profileImg?: string; // শিক্ষার্থীর প্রোফাইল ইমেজ (ঐচ্ছিক)।
+  isActive: 'active' | 'blocked'; 
+  // শিক্ষার্থীর অবস্থা (সক্রিয়/ব্লকড)।
+};
+// Student: শিক্ষার্থীর ডেটার জন্য টাইপ সংজ্ঞা।
+
+
+
+
+
+
+
+
+
